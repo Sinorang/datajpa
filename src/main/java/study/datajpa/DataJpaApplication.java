@@ -17,6 +17,7 @@ public class DataJpaApplication {
         SpringApplication.run(DataJpaApplication.class, args);
     }
 
+    // AuditorAware 인터페이스를 구현하고 스프링 빈으로 등록해야 Spring Data Auditing이 @CreatedBy나 @LastModifiedBy 필드에 현재 사용자 정보를 채울 수 있다
     @Bean
     public AuditorAware<String> auditorAware() {
         return () -> Optional.of(UUID.randomUUID().toString());
