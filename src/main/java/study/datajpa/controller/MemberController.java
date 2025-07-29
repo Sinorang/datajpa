@@ -43,4 +43,6 @@ public class MemberController {
             memberRepository.save(new Member("user" + i, i));
         }
     }
+
+    
 }
