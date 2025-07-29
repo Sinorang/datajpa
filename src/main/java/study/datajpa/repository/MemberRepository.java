@@ -12,7 +12,8 @@ import study.datajpa.entity.Member;
 import java.util.List;
 import java.util.Optional;
 
-public interface MemberRepository extends JpaRepository<Member, Long> {
+// 핵심 비즈니스 로직의 repo와 화면에 뿌려지는 데이터 repo 클래스를 나누는 것이 좋다
+public interface MemberRepository extends JpaRepository<Member, Long>, MemberRepositoryCustom {
 
     List<Member> findByUsernameAndAgeGreaterThan(String username, int age);
 
