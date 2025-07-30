@@ -334,4 +334,28 @@ class MemberRepositoryTest {
 
         assertThat(result.get(0).getUsername()).isEqualTo("m1");
     }
+
+    @Test
+    public void projections() { // 데이터를 간단하게 원하는 데이터만 찍어서 가지고 올 때 도움이 된다, select 절에 조건을 걸 수 있게 해준다.
+        //given
+        Team teamA = new Team("teamA");
+        em.persist(teamA);
+
+        Member m1 = new Member("m1", 0, teamA);
+        Member m2 = new Member("m2", 0, teamA);
+        em.persist(m1);
+        em.persist(m2);
+
+        em.flush();
+        em.clear();
+
+        //when
+//        List<UsernameOnly> result = memberRepository.findProjectionsByUsername("m1");
+        List<NestedClosedProjections> result = memberRepository.findProjectionsByUsername("m1", NestedClosedProjections.class); // NestedClosedProjections.class : 중첩 projections
+
+        for (NestedClosedProjections name : result) { // 프로젝션 대상이 root 엔티티를 넘어가면 JPQL SELECT 최적화가 안된다.
+            System.out.println("NestedClosedProjections = " + name.getUsername());
+            System.out.println("NestedClosedProjections = " + name.getTeam().getName());
+        }
+    }
 }
