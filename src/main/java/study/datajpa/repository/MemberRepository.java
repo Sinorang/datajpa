@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 // 핵심 비즈니스 로직의 repo와 화면에 뿌려지는 데이터 repo 클래스를 나누는 것이 좋다
-public interface MemberRepository extends JpaRepository<Member, Long>, MemberRepositoryCustom {
+public interface MemberRepository extends JpaRepository<Member, Long>, MemberRepositoryCustom, JpaSpecificationExecutor<Member> {
 
     List<Member> findByUsernameAndAgeGreaterThan(String username, int age);
 
